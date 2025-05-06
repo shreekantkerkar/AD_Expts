@@ -1,371 +1,415 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 HelveticaNeue-Italic;
-}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh15060\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+AndroidManifest.xml
 
-\f0\fs24 \cf0 AndroidManifest.xml\
-\
-\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-\f1\fs26 \cf0 <?xml version="1.0" encoding="utf-8"?>\
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"\
-    xmlns:tools="http://schemas.android.com/tools">\
-\
-    <application\
-        android:allowBackup="true"\
-        android:dataExtractionRules="@xml/data_extraction_rules"\
-        android:fullBackupContent="@xml/backup_rules"\
-        android:icon="@mipmap/ic_launcher"\
-        android:label="@string/app_name"\
-        android:roundIcon="@mipmap/ic_launcher_round"\
-        android:supportsRtl="true"\
-        android:theme="@style/Theme.Expt_2_prac"\
-        tools:targetApi="31">\
-        <activity\
-            android:name=".MainActivity"\
-            android:exported="true">\
-            <intent-filter>\
-                <action android:name="android.intent.action.MAIN" />\
-\
-                <category android:name="android.intent.category.LAUNCHER" />\
-            </intent-filter>\
-        </activity>\
-    </application>\
-\
-</manifest>\
-\
-\
-activity_main.xml\
-\
-<?xml version="1.0" encoding="utf-8"?>\
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"\
-    xmlns:app="http://schemas.android.com/apk/res-auto"\
-    xmlns:tools="http://schemas.android.com/tools"\
-    android:id="@+id/main"\
-    android:layout_width="match_parent"\
-    android:layout_height="match_parent"\
-    tools:context=".MainActivity">\
-\
-    <TextView\
-        android:id="@+id/textView"\
-        android:layout_width="wrap_content"\
-        android:layout_height="wrap_content"\
-        android:layout_centerHorizontal="true"\
-        android:text="My Dashboard"\
-        android:layout_margin="12dp"/>\
-\
-    <GridLayout\
-        android:layout_width="match_parent"\
-        android:layout_height="match_parent"\
-        android:layout_below="@+id/textView"\
-        android:layout_margin="20dp"\
-        android:rowCount="3"\
-        android:columnCount="2">\
-\
-        <androidx.cardview.widget.CardView\
-            android:id = "@+id/cardHome"\
-            android:layout_width = "wrap_content"\
-            android:layout_height="wrap_content"\
-            android:layout_row="0"\
-            android:layout_column="0"\
-            android:layout_rowWeight="1"\
-            android:layout_columnWeight="1"\
-            app:cardCornerRadius="8dp"\
-            app:cardElevation="8dp"\
-            app:cardUseCompatPadding="true">\
-\
-           <LinearLayout\
-               android:layout_width="wrap_content"\
-               android:layout_height="wrap_content"\
-               android:layout_gravity = "center_vertical|center_horizontal"\
-               android:gravity= "center"\
-               android:orientation="vertical">\
-\
-               <ImageView\
-                   android:layout_height="wrap_content"\
-                   android:layout_width="wrap_content"\
-                   android:src="@drawable/ic_home" />\
-\
-                <TextView\
-                    android:layout_width="wrap_content"\
-                    android:layout_height="wrap_content"\
-                    android:text="Home"\
-                    android:textSize="16sp"/>\
-\
-\
-           </LinearLayout>\
-        </androidx.cardview.widget.CardView>\
-\
-        <androidx.cardview.widget.CardView\
-            android:id = "@+id/cardChat"\
-            android:layout_width = "wrap_content"\
-            android:layout_height="wrap_content"\
-            android:layout_gravity="fill"\
-            android:layout_row="0"\
-            android:layout_column="1"\
-            android:layout_rowWeight="1"\
-            android:layout_columnWeight="1"\
-            app:cardCornerRadius="8dp"\
-            app:cardElevation="8dp"\
-            app:cardUseCompatPadding="true">\
-\
-            <LinearLayout\
-                android:layout_width="wrap_content"\
-                android:layout_height="wrap_content"\
-                android:layout_gravity = "center_vertical|center_horizontal"\
-                android:gravity= "center"\
-                android:orientation="vertical">\
-\
-                <ImageView\
-                    android:layout_height="wrap_content"\
-                    android:layout_width="wrap_content"\
-                    android:src="@drawable/ic_chat" />\
-\
-                <TextView\
-                    android:layout_width="wrap_content"\
-                    android:layout_height="wrap_content"\
-                    android:text="Chat"\
-                    android:textSize="16sp"/>\
-\
-\
-            </LinearLayout>\
-        </androidx.cardview.widget.CardView>\
-\
-\
-        <androidx.cardview.widget.CardView\
-            android:id = "@+id/cardPerson"\
-            android:layout_width = "wrap_content"\
-            android:layout_height="wrap_content"\
-            android:layout_gravity="fill"\
-            android:layout_row="1"\
-            android:layout_column="0"\
-            android:layout_rowWeight="1"\
-            android:layout_columnWeight="1"\
-            app:cardCornerRadius="8dp"\
-            app:cardElevation="8dp"\
-            app:cardUseCompatPadding="true">\
-\
-            <LinearLayout\
-                android:layout_width="wrap_content"\
-                android:layout_height="wrap_content"\
-                android:layout_gravity = "center_vertical|center_horizontal"\
-                android:gravity= "center"\
-                android:orientation="vertical">\
-\
-                <ImageView\
-                    android:layout_height="wrap_content"\
-                    android:layout_width="wrap_content"\
-                    android:src="@drawable/ic_person" />\
-\
-                <TextView\
-                    android:layout_width="wrap_content"\
-                    android:layout_height="wrap_content"\
-                    android:text="Person"\
-                    android:textSize="16sp"/>\
-\
-\
-            </LinearLayout>\
-        </androidx.cardview.widget.CardView>\
-\
-        <androidx.cardview.widget.CardView\
-            android:id = "@+id/cardLogout"\
-            android:layout_width = "wrap_content"\
-            android:layout_height="wrap_content"\
-            android:layout_gravity="fill"\
-            android:layout_row="1"\
-            android:layout_column="1"\
-            android:layout_rowWeight="1"\
-            android:layout_columnWeight="1"\
-            app:cardCornerRadius="8dp"\
-            app:cardElevation="8dp"\
-            app:cardUseCompatPadding="true">\
-\
-            <LinearLayout\
-                android:layout_width="wrap_content"\
-                android:layout_height="wrap_content"\
-                android:layout_gravity = "center_vertical|center_horizontal"\
-                android:gravity= "center"\
-                android:orientation="vertical">\
-\
-                <ImageView\
-                    android:layout_height="wrap_content"\
-                    android:layout_width="wrap_content"\
-                    android:src="@drawable/ic_logout" />\
-\
-                <TextView\
-                    android:layout_width="wrap_content"\
-                    android:layout_height="wrap_content"\
-                    android:text="Home"\
-                    android:textSize="16sp"/>\
-\
-\
-            </LinearLayout>\
-        </androidx.cardview.widget.CardView>\
-\
-        <androidx.cardview.widget.CardView\
-            android:id = "@+id/card1"\
-            android:layout_width = "wrap_content"\
-            android:layout_height="wrap_content"\
-            android:layout_gravity="fill"\
-            android:layout_row="2"\
-            android:layout_column="0"\
-            android:layout_rowWeight="1"\
-            android:layout_columnWeight="1"\
-            app:cardCornerRadius="8dp"\
-            app:cardElevation="8dp"\
-            app:cardUseCompatPadding="true">\
-\
-            <LinearLayout\
-                android:layout_width="wrap_content"\
-                android:layout_height="wrap_content"\
-                android:layout_gravity = "center_vertical|center_horizontal"\
-                android:gravity= "center"\
-                android:orientation="vertical">\
-\
-                <ImageView\
-                    android:layout_height="wrap_content"\
-                    android:layout_width="wrap_content"\
-                    android:src="@drawable/ic_home" />\
-\
-                <TextView\
-                    android:layout_width="wrap_content"\
-                    android:layout_height="wrap_content"\
-                    android:text="Home"\
-                    android:textSize="16sp"/>\
-\
-\
-            </LinearLayout>\
-        </androidx.cardview.widget.CardView>\
-\
-        <androidx.cardview.widget.CardView\
-            android:id = "@+id/card2"\
-            android:layout_width = "wrap_content"\
-            android:layout_height="wrap_content"\
-            android:layout_gravity="fill"\
-            android:layout_row="2"\
-            android:layout_column="1"\
-            android:layout_rowWeight="1"\
-            android:layout_columnWeight="1"\
-            app:cardCornerRadius="8dp"\
-            app:cardElevation="8dp"\
-            app:cardUseCompatPadding="true">\
-\
-            <LinearLayout\
-                android:layout_width="wrap_content"\
-                android:layout_height="wrap_content"\
-                android:layout_gravity = "center_vertical|center_horizontal"\
-                android:gravity= "center"\
-                android:orientation="vertical">\
-\
-                <ImageView\
-                    android:layout_height="wrap_content"\
-                    android:layout_width="wrap_content"\
-                    android:src="@drawable/ic_home" />\
-\
-                <TextView\
-                    android:layout_width="wrap_content"\
-                    android:layout_height="wrap_content"\
-                    android:text="Home"\
-                    android:textSize="16sp"/>\
-\
-\
-            </LinearLayout>\
-        </androidx.cardview.widget.CardView>\
-\
-    </GridLayout>\
-</RelativeLayout>\
-\
-\
-MainActivity.java\
-\
-\
-package com.example.expt_2_prac;\
-\
-import android.os.Bundle;\
-import android.view.View;\
-import android.widget.Toast;\
-\
-import androidx.activity.EdgeToEdge;\
-import androidx.appcompat.app.AppCompatActivity;\
-import androidx.cardview.widget.CardView;\
-import androidx.core.graphics.Insets;\
-import androidx.core.view.ViewCompat;\
-import androidx.core.view.WindowInsetsCompat;\
-\
-public class MainActivity extends AppCompatActivity \{\
-\
-    CardView home;\
-\
-    CardView chat;\
-\
-    CardView person;\
-\
-    CardView logout;\
-    @Override\
-    protected void onCreate(Bundle savedInstanceState) \{\
-        super.onCreate(savedInstanceState);\
-        setContentView(R.layout.
-\f2\i activity_main
-\f1\i0 );\
-        home = findViewById(R.id.
-\f2\i cardHome
-\f1\i0 );\
-        chat = findViewById(R.id.
-\f2\i cardChat
-\f1\i0 );\
-        person = findViewById(R.id.
-\f2\i cardPerson
-\f1\i0 );\
-        logout = findViewById(R.id.
-\f2\i cardLogout
-\f1\i0 );\
-\
-        home.setOnClickListener(new View.OnClickListener() \{\
-            @Override\
-            public void onClick(View v) \{\
-                Toast.
-\f2\i makeText
-\f1\i0 (MainActivity.this,"Home Clicked",Toast.
-\f2\i LENGTH_SHORT
-\f1\i0 ).show();\
-            \}\
-        \});\
-\
-        chat.setOnClickListener(new View.OnClickListener() \{\
-            @Override\
-            public void onClick(View v) \{\
-                Toast.
-\f2\i makeText
-\f1\i0 (MainActivity.this,"Chat Clicked",Toast.
-\f2\i LENGTH_SHORT
-\f1\i0 ).show();\
-            \}\
-        \});\
-\
-        person.setOnClickListener(new View.OnClickListener() \{\
-            @Override\
-            public void onClick(View v) \{\
-                Toast.
-\f2\i makeText
-\f1\i0 (MainActivity.this,"Person Clicked",Toast.
-\f2\i LENGTH_SHORT
-\f1\i0 ).show();\
-            \}\
-        \});\
-\
-        logout.setOnClickListener(new View.OnClickListener() \{\
-            @Override\
-            public void onClick(View v) \{\
-                Toast.
-\f2\i makeText
-\f1\i0 (MainActivity.this,"Logout Clicked",Toast.
-\f2\i LENGTH_SHORT
-\f1\i0 ).show();\
-            \}\
-        \});\
-    \}\
-\}\
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Expt_2_prac"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="My Dashboard"
+        android:layout_margin="12dp"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_margin="20dp"
+        android:rowCount="3"
+        android:columnCount="2">
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/cardHome"
+            android:layout_width = "wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity = "center_vertical|center_horizontal"
+               android:gravity= "center"
+               android:orientation="vertical">
+
+               <ImageView
+                   android:layout_height="wrap_content"
+                   android:layout_width="wrap_content"
+                   android:src="@drawable/ic_home" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textSize="16sp"/>
+
+
+           </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/cardChat"
+            android:layout_width = "wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity = "center_vertical|center_horizontal"
+                android:gravity= "center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_chat" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chat"
+                    android:textSize="16sp"/>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/cardPerson"
+            android:layout_width = "wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity = "center_vertical|center_horizontal"
+                android:gravity= "center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_person" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Person"
+                    android:textSize="16sp"/>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/cardLogout"
+            android:layout_width = "wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity = "center_vertical|center_horizontal"
+                android:gravity= "center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_logout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textSize="16sp"/>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/card1"
+            android:layout_width = "wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity = "center_vertical|center_horizontal"
+                android:gravity= "center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_widget" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Widget"
+                    android:textSize="16sp"/>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/card2"
+            android:layout_width = "wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity = "center_vertical|center_horizontal"
+                android:gravity= "center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_settings" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:textSize="16sp"/>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+</RelativeLayout>
+
+
+
+MainActivity.xml
+
+package com.example.expt_2_prac;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    CardView home;
+
+    CardView chat;
+
+    CardView person;
+
+    CardView logout;
+
+    CardView settings , widget;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        home = findViewById(R.id.cardHome);
+        chat = findViewById(R.id.cardChat);
+        person = findViewById(R.id.cardPerson);
+        logout = findViewById(R.id.cardLogout);
+        settings = findViewById(R.id.cardSettings);
+        widget = findViewById(R.id.cardWidget);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Home Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Chat Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        person.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Person Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Logout Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Settings Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        widget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Widget Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
+
+
+ic_chat.xml
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="50dp"
+    android:width="50dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:tint="#000000">
+
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M20,2H4c-1.1,0 -2,0.9 -2,2v18l4,-4h14c1.1,0 2,-0.9 2,-2V4c0,-1.1 -0.9,-2 -2,-2z"/>
+</vector>
+
+
+ic_home.xml
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="50dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="50dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/>
+    
+</vector>
+
+
+ic_widget.xml
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="50dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="50dp">
+
+    <path android:fillColor="@android:color/white" android:fillType="evenOdd" android:pathData="M3,3v8h8L11,3L3,3zM9,9L5,9L5,5h4v4zM3,13v8h8v-8L3,13zM9,19L5,19v-4h4v4zM13,3v8h8L21,3h-8zM19,9h-4L15,5h4v4zM13,13v8h8v-8h-8zM19,19h-4v-4h4v4z"/>
+
+</vector>
+
+
+ic_settings.xml
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="50dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="50dp">
+
+    <path android:fillColor="@android:color/white" android:pathData="M21.81,12.74l-0.82,-0.63v-0.22l0.8,-0.63c0.16,-0.12 0.2,-0.34 0.1,-0.51l-0.85,-1.48c-0.07,-0.13 -0.21,-0.2 -0.35,-0.2 -0.05,0 -0.1,0.01 -0.15,0.03l-0.95,0.38c-0.08,-0.05 -0.11,-0.07 -0.19,-0.11l-0.15,-1.01c-0.03,-0.21 -0.2,-0.36 -0.4,-0.36h-1.71c-0.2,0 -0.37,0.15 -0.4,0.34l-0.14,1.01c-0.03,0.02 -0.07,0.03 -0.1,0.05l-0.09,0.06 -0.95,-0.38c-0.05,-0.02 -0.1,-0.03 -0.15,-0.03 -0.14,0 -0.27,0.07 -0.35,0.2l-0.85,1.48c-0.1,0.17 -0.06,0.39 0.1,0.51l0.8,0.63v0.23l-0.8,0.63c-0.16,0.12 -0.2,0.34 -0.1,0.51l0.85,1.48c0.07,0.13 0.21,0.2 0.35,0.2 0.05,0 0.1,-0.01 0.15,-0.03l0.95,-0.37c0.08,0.05 0.12,0.07 0.2,0.11l0.15,1.01c0.03,0.2 0.2,0.34 0.4,0.34h1.71c0.2,0 0.37,-0.15 0.4,-0.34l0.15,-1.01c0.03,-0.02 0.07,-0.03 0.1,-0.05l0.09,-0.06 0.95,0.38c0.05,0.02 0.1,0.03 0.15,0.03 0.14,0 0.27,-0.07 0.35,-0.2l0.85,-1.48c0.1,-0.17 0.06,-0.39 -0.1,-0.51zM18,13.5c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5 1.5,0.67 1.5,1.5 -0.67,1.5 -1.5,1.5zM17,17h2v4c0,1.1 -0.9,2 -2,2H7c-1.1,0 -2,-0.9 -2,-2V3c0,-1.1 0.9,-2 2,-2h10c1.1,0 2,0.9 2,2v4h-2V6H7v12h10v-1z"/>
+
+</vector>
+
+
+ic_person.xml
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="50dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="50dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M12,4m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+      
+    <path android:fillColor="@android:color/white" android:pathData="M15.89,8.11C15.5,7.72 14.83,7 13.53,7c-0.21,0 -1.42,0 -2.54,0C8.24,6.99 6,4.75 6,2H4c0,3.16 2.11,5.84 5,6.71V22h2v-6h2v6h2V10.05L18.95,14l1.41,-1.41L15.89,8.11z"/>
+    
+</vector>
+
+
+ic_logout.xml
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true" android:height="50dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="50dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M10.09,15.59L11.5,17l5,-5 -5,-5 -1.41,1.41L12.67,11H3v2h9.67l-2.58,2.59zM19,3H5c-1.11,0 -2,0.9 -2,2v4h2V5h14v14H5v-4H3v4c0,1.1 0.89,2 2,2h14c1.1,0 2,-0.9 2,-2V5c0,-1.1 -0.9,-2 -2,-2z"/>
+    
+</vector>
