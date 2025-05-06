@@ -1,0 +1,274 @@
+AndroidManifest.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Expt_09_prac"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginVertical="150dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Android Storage App"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/fileInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter FileName"
+        android:gravity="left"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/textInput"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:hint="Enter Data"
+        android:gravity="left"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/internalStgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Internal Storage"
+            android:layout_marginEnd="10dp"/>
+
+        <RadioButton
+            android:id="@+id/externalStgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="External Storage" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_marginEnd="10dp"
+            android:onClick="saveData"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load"
+            android:onClick="loadData"/>
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+MainActivity.java
+
+package com.example.expt_09_prac;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText fileName , fileContent;
+
+    RadioButton internalStorage , externalStorage;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        fileName = findViewById(R.id.fileInput);
+        fileContent = findViewById(R.id.textInput);
+        internalStorage = findViewById(R.id.internalStgBtn);
+        externalStorage = findViewById(R.id.externalStgBtn);
+    }
+
+    public void saveData(View view) {
+        String fileN = fileName.getText().toString();
+        String fileC = fileContent.getText().toString();
+
+        if(fileC.isEmpty() || fileN.isEmpty()) {
+            Toast.makeText(this,"Enter filename and text content",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try{
+            if(internalStorage.isChecked()) {
+                saveInternalStorage(fileN,fileC);
+                fileName.getText().clear();
+                fileContent.getText().clear();
+            }else if(externalStorage.isChecked()) {
+                saveExternalStorage(fileN,fileC);
+                fileName.getText().clear();
+                fileContent.getText().clear();
+            }
+        }catch(Exception e){
+            Toast.makeText(this,"error occured" + e.getMessage(),Toast.LENGTH_SHORT).show();
+            fileName.getText().clear();
+            fileContent.getText().clear();
+        }
+    }
+
+    public void loadData(View view) {
+        String fileN = fileName.getText().toString();
+        if(fileN.isEmpty()) {
+            Toast.makeText(this,"Enter file name",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try{
+            String content;
+            if(internalStorage.isChecked()) {
+                content = loadInternalStorage(fileN);
+            }else if(externalStorage.isChecked()) {
+                content = loadExternalStorage(fileN);
+            }else {
+                Toast.makeText(this,"select radio button",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            fileContent.setText(content);
+        }catch(Exception e) {
+            Toast.makeText(this,"error occured" + e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveInternalStorage(String fName,String content) {
+        try(FileOutputStream fos = openFileOutput(fName,Context.MODE_PRIVATE)){
+            fos.write(content.getBytes(StandardCharsets.UTF_8));
+            Toast.makeText(this,"File saved to internal storage",Toast.LENGTH_SHORT).show();
+        }catch(Exception e) {
+            Toast.makeText(this,"Error : " + e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveExternalStorage(String fName,String content) {
+        if(isExternalStorageWritable()) {
+            File file = new File(getExternalFilesDir(null),fName);
+            try(FileOutputStream fos = new FileOutputStream(file)) {
+                fos.write(content.getBytes(StandardCharsets.UTF_8));
+                Toast.makeText(this,"File added to external storage",Toast.LENGTH_SHORT).show();
+            }catch (Exception e) {
+                Toast.makeText(this,"Error : " + e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private String loadInternalStorage(String fName) throws Exception{
+        try(FileInputStream fis = openFileInput(fName)) {
+            InputStreamReader isr = new InputStreamReader(fis,StandardCharsets.UTF_8);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            while((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString().trim();
+        }
+    }
+
+    private String loadExternalStorage(String fName) throws Exception{
+        if(isInternalStorageReadable()) {
+            File file = new File(getExternalFilesDir(null),fName);
+            try(FileInputStream fis = new FileInputStream(file)){
+                InputStreamReader isr = new InputStreamReader(fis,StandardCharsets.UTF_8);
+                BufferedReader bufferedReader = new BufferedReader(isr);
+                String line;
+                StringBuilder sb = new StringBuilder();
+                while((line = bufferedReader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                return sb.toString().trim();
+            }
+        }else {
+            throw new Exception("External Storage not readable");
+        }
+    }
+
+
+    private boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    private boolean isInternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+    }
+}
