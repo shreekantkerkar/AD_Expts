@@ -1,0 +1,179 @@
+AndroidManifest.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Image_slider"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/prevBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_arrow_left"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_weight="1"/>
+
+    <ImageButton
+        android:id="@+id/nextBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_arrow_right"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"/>
+</LinearLayout>
+
+
+item_image_slider.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+</androidx.cardview.widget.CardView>
+
+
+MainActivity.java
+
+package com.example.image_slider;
+
+import android.os.Bundle;
+import android.widget.ImageButton;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        ImageButton prevButton = findViewById(R.id.prevBtn);
+        ImageButton nextButton = findViewById(R.id.nextBtn);
+
+        int[] images = {R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4,R.drawable.image5};
+
+        ImageSliderAdapter adapter = new ImageSliderAdapter(images);
+        viewPager.setAdapter(adapter);
+
+        prevButton.setOnClickListener(v -> {
+            int currItem = viewPager.getCurrentItem();
+            if(currItem > 0) {
+                viewPager.setCurrentItem(currItem-1,true);
+            }
+
+        });
+
+        nextButton.setOnClickListener(v -> {
+            int currItem = viewPager.getCurrentItem();
+            if(currItem < images.length-1) {
+                viewPager.setCurrentItem(currItem+1,true);
+            }
+
+        });
+    }
+}
+
+
+ImageSliderAdapter.java
+
+package com.example.image_slider;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageSliderViewHolder> {
+    private final int[] images;
+
+    public ImageSliderAdapter(int[] images) {this.images = images;}
+    @NonNull
+    @Override
+    public ImageSliderAdapter.ImageSliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_image_slider,parent,false);
+        return new ImageSliderViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ImageSliderAdapter.ImageSliderViewHolder holder, int position) {
+        holder.imageView.setImageResource(images[position]);
+    }
+
+    @Override
+    public int getItemCount() {
+        return images.length;
+    }
+
+    static class ImageSliderViewHolder extends RecyclerView.ViewHolder{
+        ImageView imageView;
+        public ImageSliderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageView);
+        }
+    }
+
+}
