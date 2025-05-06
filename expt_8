@@ -1,0 +1,325 @@
+AndroidManifest.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Media_player"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:gravity="center"
+    android:paddingBottom="50dp">
+
+    <ImageView
+        android:id="@+id/songImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="120dp"/>
+
+    <TextView
+        android:id="@+id/songName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/artistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginBottom="30dp" />
+
+    <SeekBar
+        android:id="@+id/songProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/prevBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="30dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_previous" />
+
+        <ImageButton
+            android:id="@+id/pausePlayBtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_pause" />
+
+        <ImageButton
+            android:id="@+id/nextBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_next" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+ic_next.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,6L8.59,7.41 13.17,12l-4.58,4.59L10,18l6,-6z"/>
+</vector>
+
+
+ic_previous.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15.41,7.41L14,6l-6,6 6,6 1.41,-1.41L10.83,12z"/>
+</vector>
+
+
+ic_pause.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6,19h4L10,5L6,5v14zM14,5v14h4L18,5h-4z"/>
+</vector>
+
+
+ic_play.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,5v14l11,-7z"/>
+</vector>
+
+
+MainActivity.java
+
+package com.example.media_player;
+
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    MediaPlayer mediaPlayer;
+    Song song;
+    List<Song> list;
+    ImageView coverImage;
+    TextView songName , artistName;
+    SeekBar seekBar;
+    ImageButton previous , next , playPause;
+    Handler handler = new Handler();
+    int songIndex = 0;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        coverImage = findViewById(R.id.songImage);
+        songName = findViewById(R.id.songName);
+        artistName = findViewById(R.id.artistName);
+        previous = findViewById(R.id.prevBtn);
+        next = findViewById(R.id.nextBtn);
+        playPause = findViewById(R.id.pausePlayBtn);
+        seekBar = findViewById(R.id.songProgressBar);
+
+        list = new ArrayList<>();
+        list.add(new Song("Mera Naam Mary Hai","Kareena Kapoor",R.raw.mera_naam_mary,R.drawable.img_3));
+        list.add(new Song("Fevicol Se","Kareena Kapoor",R.raw.fevicol_se,R.drawable.img_2));
+
+        setUpSong(list.get(songIndex));
+
+        playPause.setOnClickListener(v -> {
+            if(mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+                playPause.setImageResource(R.drawable.ic_play);
+            }else {
+                mediaPlayer.start();
+                playPause.setImageResource(R.drawable.ic_pause);
+                updateSeekBar();
+            }
+        });
+
+        previous.setOnClickListener(v -> {
+            if(mediaPlayer != null) {
+                mediaPlayer.release();
+            }
+            songIndex = (songIndex-1+list.size()) % list.size();
+            setUpSong(list.get(songIndex));
+        });
+
+        next.setOnClickListener(v -> {
+            if(mediaPlayer != null) mediaPlayer.release();
+
+            songIndex = (songIndex + 1) % list.size();
+            setUpSong(list.get(songIndex));
+        });
+    }
+
+    private void setUpSong(Song song) {
+        if(mediaPlayer != null) {
+            mediaPlayer.release();
+        }
+
+        mediaPlayer = MediaPlayer.create(this,song.getSongResource());
+        coverImage.setImageResource(song.getCoverImageResource());
+        songName.setText(song.getSongName());
+        artistName.setText(song.getArtistName());
+
+        seekBar.setMax(mediaPlayer.getDuration());
+
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser && mediaPlayer != null) {
+                    mediaPlayer.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        mediaPlayer.start();
+        updateSeekBar();
+    }
+
+    private void updateSeekBar(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                    handler.postDelayed(this,1000);
+                }
+            }
+        },1000);
+    }
+}
+
+
+Song.java
+
+package com.example.media_player;
+
+public class Song {
+    String songName;
+    String artistName;
+    int songResource;
+    int coverImageResource;
+
+    public Song(String songName,String artistName,int songResource,int coverImageResource) {
+        this.artistName = artistName;
+        this.songName = songName;
+        this.songResource = songResource;
+        this.coverImageResource = coverImageResource;
+    }
+
+    public String getSongName() {
+        return artistName;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public int getSongResource() {
+        return songResource;
+    }
+
+    public int getCoverImageResource() {
+        return coverImageResource;
+    }
+}
